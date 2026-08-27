@@ -11,14 +11,14 @@ df = pd.read_csv('../Dataset/ai4i2020.csv')
 
 df['Type'] = df['Type'].map({'L': 0, 'M': 1, 'H': 2})
 
-X = df[[
-  'Type',
-  'Air temperature [K]',
-  'Process temperature [K]',
-  'Rotational speed [rpm]',
-  'Torque [Nm]',
-  'Tool wear [min]'
-]]
+features = ['Type',
+  'Air temperature[k]',
+  'Process temperature[k]',
+  'Rotational speed[rpm]',
+  'Torque[Nm]',
+  'Tool wear[min]']
+
+X = df[features]
 
 X.hist(bins=42, figsize=(12, 8))
 plt.show()
@@ -38,6 +38,3 @@ prediction = model.predict(X_test)
 accuracy = accuracy_score(
   y_test,
   prediction  
-)
-
-print(accuracy)
