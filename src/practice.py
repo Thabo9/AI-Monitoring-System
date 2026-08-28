@@ -1,37 +1,35 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
-from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
 
 
-df = pd.read_csv('../Dataset/ai4i2020.csv')
+df = pd.read_csv('../Dataset/equipment_anomaly_data.csv')
 
+df['equipment'] = df['equipment'].map({'Turbine': 0, 'Compressor': 1, 'Pump': 2})
+df['location'] = df['location'].map({'Atlanta': 0, 'Chicago': 1, 'San Francisco': 2, 'New York': 3, 'Houston': 4})
 
-df['Type'] = df['Type'].map({'L': 0, 'M': 1, 'H': 2})
+features =['equipment',
+'pressure',
+'vibration',
+'humidity',
+'location']
 
-X = df[[
-  'Type',
-  'Air temperature [K]',
-  'Process temperature [K]',
-  'Rotational speed [rpm]',
-  'Torque [Nm]',
-  'Tool wear [min]'
-]]
+X = df[features]
 
 X.hist(bins=42, figsize=(12, 8))
 plt.show()
 
-y = df['Machine failure']
+y = df['faulty']
 
 X_train, X_test, y_train, y_test = train_test_split(
   X, y, test_size=.20, random_state= 42, stratify=y
 ) 
 
-model = GaussianNB()
+model = RandomForestClassifier()
 
-model.fit(X_train, y_train)
+model = model.fit(X_train, y_train)
 
 prediction = model.predict(X_test)
 
