@@ -4,38 +4,34 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 
+class AIModel:
+    def __init__(self):
+        
+        df = pd.read_csv('../Dataset/equipment_anomaly_data.csv')
 
-df = pd.read_csv('../Dataset/equipment_anomaly_data.csv')
+        
+        df['equipment'] = df['equipment'].map({'Turbine': 0, 'Compressor': 1, 'Pump': 2})
+        df['location'] = df['location'].map({'Atlanta': 0, 'Chicago': 1, 'San Francisco': 2, 'New York': 3, 'Houston': 4})
 
-df['equipment'] = df['equipment'].map({'Turbine': 0, 'Compressor': 1, 'Pump': 2})
-df['location'] = df['location'].map({'Atlanta': 0, 'Chicago': 1, 'San Francisco': 2, 'New York': 3, 'Houston': 4})
+        features = ['temperature', 'pressure', 'vibration', 'humidity', 'equipment', 'location']
+        X = df[features]
+        y = df['faulty']
 
-features =['equipment',
-'pressure',
-'vibration',
-'humidity',
-'location']
+        #Training and splitting of data, used stratify to preserve propotion 
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.20, random_state=42, stratify=y
+        ) 
+        #Training the data using the Random Forest Classifier
+        self.model_rand = RandomForestClassifier()
+        self.model_rand.fit(X_train, y_train)
 
-X = df[features]
+        #Prediction of output(0 or 1) and model accuracy
+        prediction = self.model_rand.predict(X_test)
+        self.accuracy = accuracy_score(y_test, prediction)
 
-X.hist(bins=42, figsize=(12, 8))
-plt.show()
+    #DEfined two methods to use in nlp-config.py for prediction
+    def predict(self, input_data):
+        return self.model_rand.predict(input_data)
 
-y = df['faulty']
-
-X_train, X_test, y_train, y_test = train_test_split(
-  X, y, test_size=.20, random_state= 42, stratify=y
-) 
-
-model = RandomForestClassifier()
-
-model = model.fit(X_train, y_train)
-
-prediction = model.predict(X_test)
-
-accuracy = accuracy_score(
-  y_test,
-  prediction  
-)
-
-print(accuracy)
+    def predict_proba(self, input_data):
+        return self.model_rand.predict_proba(input_data)
