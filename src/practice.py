@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 
 class AIModel:
+
     def __init__(self):
         
         df = pd.read_csv('../Dataset/equipment_anomaly_data.csv')

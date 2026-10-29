@@ -1,0 +1,12 @@
+AI Solution - In a manufacturing industry, machines are treated as assets in the business. Premature and undetected machine failure can have a detrimental impact towards the business meeting it’s end goal.
+We have created an AI monitoring system which uses an AI Model to monitor the status of all the machinery in a business. This model uses different variables of the machines such as the temperature and torque of the machines, in order to come to a conclusion on whether the machines are still functioning to the standards set by the manager or are experiencing failure and should be replaced.
+
+
+Problem Def-
+
+In a manufacturing industry it is important for your machinery to always be in good working conditions as they are a focal point in the business reaching its objectives.
+As your business grows you will be required to expand your operations and machinery to tailor for these new demands. As you expand it becomes hard for humans to monitor all these machines prior to them experiencing failure. This can be costly for all stakeholders involved in the business in ways it may stall business operations (manufacturing products) and may be a safety hazard for those working with or around the machines. This proposed AI model provides a solution to all these concerns by means of it being able to predict whether a machine might experience failure sooner than a person would have.
+
+ This model has been trained using large number of datasets and can precisely predict when a machine is about experience failure using a collection of variables such as the temperature, torque, humidity and pressure the machine is experiencing. 
+
+With the proper deployment of our AI model, this model can be used in different sectors of the government including detecting machine failure in the water and sanitation department, ensuring that we always have safe and drinkable water.
