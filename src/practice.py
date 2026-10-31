@@ -1,23 +1,25 @@
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
+ 
+import numpy as np
+from preprocessing import clean_data
+
 
 class AIModel:
-
     def __init__(self):
         
-        df = pd.read_csv('../Dataset/equipment_anomaly_data.csv')
+        df = clean_data (pd.read_csv('../Dataset/equipment_anomaly_data.csv'))
 
         
         df['equipment'] = df['equipment'].map({'Turbine': 0, 'Compressor': 1, 'Pump': 2})
         df['location'] = df['location'].map({'Atlanta': 0, 'Chicago': 1, 'San Francisco': 2, 'New York': 3, 'Houston': 4})
-
         features = ['temperature', 'pressure', 'vibration', 'humidity', 'equipment', 'location']
         X = df[features]
         y = df['faulty']
-
         #Training and splitting of data, used stratify to preserve propotion 
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.20, random_state=42, stratify=y
@@ -36,3 +38,9 @@ class AIModel:
 
     def predict_proba(self, input_data):
         return self.model_rand.predict_proba(input_data)
+
+    
+   
+
+
+    5559685968888687
